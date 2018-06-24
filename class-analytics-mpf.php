@@ -106,16 +106,23 @@ class Analytics_MPF
         */
         
         add_settings_section( 
-            'mpf_plugin_section_login', 
-            'Customize Login Page', 
-            array( $this, 'mpf_plugin_callback_section_login'), 
+            'mpf_plugin_section_top', 
+            'Header Analytics Code', 
+            array( $this, 'mpf_plugin_callback_section_top'), 
             'mpf-analytics'
         );
         
         add_settings_section( 
-            'mpf_plugin_section_admin', 
-            'Customize Admin Area', 
-            array( $this, 'mpf_plugin_callback_section_admin'), 
+            'mpf_plugin_section_middle', 
+            'Body Analytics Code', 
+            array( $this, 'mpf_plugin_callback_section_middle'), 
+            'mpf-analytics'
+        );
+
+        add_settings_section( 
+            'mpf_plugin_section_bottom', 
+            'Footer Analytics Code', 
+            array( $this, 'mpf_plugin_callback_section_bottom'), 
             'mpf-analytics'
         );
 
@@ -138,12 +145,30 @@ class Analytics_MPF
         */
 
         add_settings_field(
-            'custom_message',
-            'Custom Message',
-            array( $this, 'mpf_plugin_callback_field_textarea'),
+            'header_script',
+            'Header Script',
+            array( $this, 'mpf_plugin_callback_field_textarea_top'),
             'mpf-analytics',
-            'mpf_plugin_section_login',
-            [ 'id' => 'custom_message', 'label' => 'Custom text and/or markup' ]
+            'mpf_plugin_section_top',
+            [ 'id' => 'header_script', 'label' => 'This content goes in the head tag' ]
+        );
+
+        add_settings_field(
+            'body_script',
+            'Body Script',
+            array( $this, 'mpf_plugin_callback_field_textarea_middle'),
+            'mpf-analytics',
+            'mpf_plugin_section_middle',
+            [ 'id' => 'body_script', 'label' => 'This content goes in the body tag' ]
+        );
+
+        add_settings_field(
+            'footer_script',
+            'Header Script',
+            array( $this, 'mpf_plugin_callback_field_textarea_bottom'),
+            'mpf-analytics',
+            'mpf_plugin_section_bottom',
+            [ 'id' => 'footer_script', 'label' => 'This content goes in the footer tag' ]
         );
     }
 
@@ -158,9 +183,23 @@ class Analytics_MPF
     function mpf_plugin_validate_options($input) {
         
         // custom message
-        if ( isset( $input['custom_message'] ) ) {
+        if ( isset( $input['header_script'] ) ) {
             
-            $input['custom_message'] = wp_kses_post( $input['custom_message'] );
+            // $input['header_script'] = wp_kses_post( $input['header_script'] );
+            
+        }   
+
+        // custom message
+        if ( isset( $input['body_script'] ) ) {
+            
+            // $input['body_script'] = wp_kses_post( $input['body_script'] );
+            
+        }   
+
+        // custom message
+        if ( isset( $input['footer_script'] ) ) {
+            
+            // $input['footer_script'] = wp_kses_post( $input['footer_script'] );
             
         }        
         
@@ -171,38 +210,77 @@ class Analytics_MPF
 
 
     // callback: login section
-    function mpf_plugin_callback_section_login() {
+    function mpf_plugin_callback_section_top() {
         
-        echo '<p>These settings enable you to customize the WP Login screen.</p>';
+        echo '<p>These settings enable you to customize the Top.</p>';
         
     }
-
-
 
     // callback: admin section
-    function mpf_plugin_callback_section_admin() {
+    function mpf_plugin_callback_section_middle() {
         
-        echo '<p>These settings enable you to customize the WP Admin Area.</p>';
+        echo '<p>These settings enable you to customize the Middle.</p>';
         
     }
 
+    // callback: admin section
+    function mpf_plugin_callback_section_bottom() {
+        
+        echo '<p>These settings enable you to customize the Bottom.</p>';
+        
+    }
+
+
     // callback: textarea field
-    function mpf_plugin_callback_field_textarea( $args ) {
+    function mpf_plugin_callback_field_textarea_top( $args ) {
         
         $options = get_option( 'mpf_analytics_options' );
         
         $id    = isset( $args['id'] )    ? $args['id']    : '';
         $label = isset( $args['label'] ) ? $args['label'] : '';
         
-        $allowed_tags = wp_kses_allowed_html( 'post' );
+        // $allowed_tags = wp_kses_allowed_html( 'post' );
         
-        $value = isset( $options[$id] ) ? wp_kses( stripslashes_deep( $options[$id] ), $allowed_tags ) : '';
+        $value = isset( $options[$id] ) ?  $options[$id] : '';
         
         echo '<textarea id="mpf_analytics_options_'. $id .'" name="mpf_analytics_options['. $id .']" rows="5" cols="50">'. $value .'</textarea><br />';
         echo '<label for="mpf_analytics_options_'. $id .'">'. $label .'</label>';
         
     }
 
+    // callback: textarea field
+    function mpf_plugin_callback_field_textarea_middle( $args ) {
+        
+        $options = get_option( 'mpf_analytics_options' );
+        
+        $id    = isset( $args['id'] )    ? $args['id']    : '';
+        $label = isset( $args['label'] ) ? $args['label'] : '';
+        
+        // $allowed_tags = wp_kses_allowed_html( 'post' );
+        
+        $value = isset( $options[$id] ) ?  $options[$id] : '';
+        
+        echo '<textarea id="mpf_analytics_options_'. $id .'" name="mpf_analytics_options['. $id .']" rows="5" cols="50">'. $value .'</textarea><br />';
+        echo '<label for="mpf_analytics_options_'. $id .'">'. $label .'</label>';
+        
+    }
+
+    // callback: textarea field
+    function mpf_plugin_callback_field_textarea_bottom( $args ) {
+        
+        $options = get_option( 'mpf_analytics_options' );
+        
+        $id    = isset( $args['id'] )    ? $args['id']    : '';
+        $label = isset( $args['label'] ) ? $args['label'] : '';
+        
+        // $allowed_tags = wp_kses_allowed_html( 'post' );
+        
+        $value = isset( $options[$id] ) ?  $options[$id] : '';
+        
+        echo '<textarea id="mpf_analytics_options_'. $id .'" name="mpf_analytics_options['. $id .']" rows="5" cols="50">'. $value .'</textarea><br />';
+        echo '<label for="mpf_analytics_options_'. $id .'">'. $label .'</label>';
+        
+    }
 
 
 

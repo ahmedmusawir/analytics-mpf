@@ -29,6 +29,7 @@ define( "ANALYTICS_PLUGIN_DIR", plugin_dir_path( __FILE__ ) );
 require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-top-metabox.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-middle-metabox.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-bottom-metabox.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-frontend.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-enqueue.php' );
 
@@ -46,6 +47,8 @@ require_once( plugin_dir_path( __FILE__ ) . 'class-enqueue.php' );
 	$top_meta_box = new Analytics_MPF_Top_Metabox();
 	$middle_meta_box = new Analytics_MPF_Middle_Metabox();
 	$bottom_meta_box = new Analytics_MPF_Bottom_Metabox();
+
+	$frontend = new Analytics_MPF_Frontend();
 
 // Activation
 require_once plugin_dir_path( __FILE__ ) . 'inc/Base/class-activate.php';
