@@ -14,8 +14,9 @@ class Analytics_MPF_Frontend
 	
 	function __construct()
 	{
-		add_action( 'wp_head', array( $this, 'place_script_in_header') );
-		add_action( 'wp_footer', array( $this, 'place_script_in_footer') );
+        // add_action( 'wp_head', array( $this, 'place_script_in_header') );
+		add_filter( 'body_class', array( $this, 'place_script_in_body') );
+		// add_action( 'wp_footer', array( $this, 'place_script_in_footer') );
 	}
 
     public function place_script_in_header() {
@@ -34,7 +35,8 @@ class Analytics_MPF_Frontend
 
 	}
 
-	public function place_script_in_body() {
+    
+	public function place_script_in_body( $classes ) {
 
         $options = get_option( 'mpf_analytics_options' );
 
@@ -44,9 +46,14 @@ class Analytics_MPF_Frontend
             $middle_script = $options['body_script'];
         }
 
-        echo "<!-- ################# MPF BODY SCRIPT ########################-->\n"; 
-        echo $middle_script;
-        echo "<!-- ################# END MPF BODY SCRIPT ####################-->\n"; 
+        // echo "<!-- ################# MPF BODY SCRIPT ########################-->\n"; 
+        // echo $middle_script;
+        // echo "<!-- ################# END MPF BODY SCRIPT ####################-->\n"; 
+
+         // close <body> tag, insert stuff, open some other tag with senseless variable      
+          $classes[] = '">'. $middle_script . '<noscript></noscript novar="';
+
+          return $classes;        
 	}
 
 	public function place_script_in_footer() {

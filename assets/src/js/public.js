@@ -1,12 +1,8 @@
 jQuery(document).ready(function($) {
 
-  var adminContent = $( 'body' );
+	// alert('working');
 
-  adminContent.click( function(){
-
-  	$( this ).css('background-color', 'dodgerblue')
-  			 .css('color', 'white');
-
-  });
+	// $('body').prepend("WTF is the internet");
+	$( 'body' ).prepend("<script><?php do_action('after_body'); ?></script>");
 	
 });
