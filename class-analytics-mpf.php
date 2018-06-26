@@ -243,7 +243,7 @@ class Analytics_MPF
         
         $value = isset( $options[$id] ) ?  $options[$id] : '';
         
-        echo '<textarea id="mpf_analytics_options_'. $id .'" name="mpf_analytics_options['. $id .']" rows="5" cols="50">'. $value .'</textarea><br />';
+        echo '<textarea id="mpf_analytics_options_'. $id .'" name="mpf_analytics_options['. $id .']" rows="8" cols="50">'. $value .'</textarea><br />';
         echo '<label for="mpf_analytics_options_'. $id .'">'. $label .'</label>';
         
     }
@@ -260,7 +260,7 @@ class Analytics_MPF
         
         $value = isset( $options[$id] ) ?  $options[$id] : '';
         
-        echo '<textarea id="mpf_analytics_options_'. $id .'" name="mpf_analytics_options['. $id .']" rows="5" cols="50">'. $value .'</textarea><br />';
+        echo '<textarea id="mpf_analytics_options_'. $id .'" name="mpf_analytics_options['. $id .']" rows="8" cols="50">'. $value .'</textarea><br />';
         echo '<label for="mpf_analytics_options_'. $id .'">'. $label .'</label>';
         
     }
@@ -277,7 +277,7 @@ class Analytics_MPF
         
         $value = isset( $options[$id] ) ?  $options[$id] : '';
         
-        echo '<textarea id="mpf_analytics_options_'. $id .'" name="mpf_analytics_options['. $id .']" rows="5" cols="50">'. $value .'</textarea><br />';
+        echo '<textarea id="mpf_analytics_options_'. $id .'" name="mpf_analytics_options['. $id .']" rows="8" cols="50">'. $value .'</textarea><br />';
         echo '<label for="mpf_analytics_options_'. $id .'">'. $label .'</label>';
         
     }

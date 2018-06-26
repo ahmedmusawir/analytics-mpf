@@ -26,10 +26,15 @@ if ( ! defined( 'WPINC' ) ) {
 define( "ANALYTICS_PLUGIN_DIR", plugin_dir_path( __FILE__ ) );
 
 
-require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-top-metabox.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-middle-metabox.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-bottom-metabox.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-frontend.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-top-metabox-page.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-middle-metabox-page.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-bottom-metabox-page.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-top-metabox-post.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-middle-metabox-post.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-bottom-metabox-post.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-frontend-admin.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-frontend-post.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf-frontend-page.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-analytics-mpf.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-enqueue.php' );
 
@@ -37,18 +42,24 @@ require_once( plugin_dir_path( __FILE__ ) . 'class-enqueue.php' );
 // INSTANTIATE CLASSES
 
 	//Enqueue Styles & Scripts
-	$setup_styles = new Analytics_MPF_Enqueue();
-	$setup_styles->initialize();
+	// $setup_styles = new Analytics_MPF_Enqueue();
+	// $setup_styles->initialize();
 
 
 	//Calling Plugin Main Class 
 	$admin_page = new Analytics_MPF();
 
-	$top_meta_box = new Analytics_MPF_Top_Metabox();
-	$middle_meta_box = new Analytics_MPF_Middle_Metabox();
-	$bottom_meta_box = new Analytics_MPF_Bottom_Metabox();
+	$top_meta_box_post = new Analytics_MPF_Top_Metabox_Post();
+	$middle_meta_box_post = new Analytics_MPF_Middle_Metabox_Post();
+	$bottom_meta_box_post = new Analytics_MPF_Bottom_Metabox_Post();
 
-	$frontend = new Analytics_MPF_Frontend();
+	$top_meta_box_page = new Analytics_MPF_Top_Metabox_Page();
+	$middle_meta_box_page = new Analytics_MPF_Middle_Metabox_Page();
+	$bottom_meta_box_page = new Analytics_MPF_Bottom_Metabox_Page();
+
+	$frontend_admin = new Analytics_MPF_Frontend_Admin();
+	$frontend_post = new Analytics_MPF_Frontend_Post();
+	$frontend_page = new Analytics_MPF_Frontend_Page();
 
 /*=================================
 =            TEST CODE            =

@@ -2,7 +2,7 @@
 /**
 * Custom Metabox TextArea Class
 */
-class Analytics_MPF_Middle_Metabox 
+class Analytics_MPF_Bottom_Metabox_Post 
 {
     
     function __construct()
@@ -25,8 +25,8 @@ class Analytics_MPF_Middle_Metabox
          */
         
         add_meta_box( 
-            'analytics_middle_metabox', 
-            'Analytics Body - Tracking Code', 
+            'analytics_bottom_metabox', 
+            'Analytics Footer - Tracking Code', 
             array( $this, 'textareaDisplayMPF' ), 
             'post', 
             'normal', 
@@ -37,13 +37,13 @@ class Analytics_MPF_Middle_Metabox
 
     public function textareaDisplayMPF( $post ) {
 
-        $value = get_post_meta( $post->ID, '_analytics_middle_meta_key', true );
+        $value = get_post_meta( $post->ID, '_analytics_bottom_meta_key', true );
 
-        wp_nonce_field( basename( __FILE__ ), 'analytics_middle_meta_box_nonce' );
+        wp_nonce_field( basename( __FILE__ ), 'analytics_bottom_meta_box_nonce' );
 
     ?>
 
-         <textarea class="widefat" name="analytics_middle_metabox"><?php echo $value; ?></textarea>
+         <textarea class="widefat" name="analytics_bottom_metabox" rows="7"><?php echo $value; ?></textarea>
 
     <?php
     }
@@ -55,9 +55,9 @@ class Analytics_MPF_Middle_Metabox
 
         $is_valid_nonce = false;
 
-        if ( isset( $_POST[ 'analytics_middle_meta_box_nonce' ] ) ) {
+        if ( isset( $_POST[ 'analytics_bottom_meta_box_nonce' ] ) ) {
 
-            if ( wp_verify_nonce( $_POST[ 'analytics_middle_meta_box_nonce' ], basename( __FILE__ ) ) ) {
+            if ( wp_verify_nonce( $_POST[ 'analytics_bottom_meta_box_nonce' ], basename( __FILE__ ) ) ) {
 
                 $is_valid_nonce = true;
 
@@ -68,7 +68,7 @@ class Analytics_MPF_Middle_Metabox
         if ( $is_autosave || $is_revision || !$is_valid_nonce ) return;
         
 
-        if ( array_key_exists( 'analytics_middle_metabox', $_POST ) ) {        
+        if ( array_key_exists( 'analytics_bottom_metabox', $_POST ) ) {        
             /**
              *
              * update post meta 
@@ -79,11 +79,11 @@ class Analytics_MPF_Middle_Metabox
                 $previous_value (optional)
              *
              */
-            $textarea_content = sanitize_text_field( $_POST[ 'analytics_middle_metabox' ] );
+            $textarea_content = $_POST[ 'analytics_bottom_metabox' ];
 
             update_post_meta( 
-                $post_id,                                              // Post ID
-                '_analytics_middle_meta_key',                              // Meta key            
+                $post_id,                                            // Post ID
+                '_analytics_bottom_meta_key',                        // Meta key            
                 $textarea_content                                    // Meta value 
             );
         }

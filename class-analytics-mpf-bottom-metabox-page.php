@@ -2,7 +2,7 @@
 /**
 * Custom Metabox TextArea Class
 */
-class Analytics_MPF_Top_Metabox 
+class Analytics_MPF_Bottom_Metabox_Page
 {
     
     function __construct()
@@ -25,10 +25,10 @@ class Analytics_MPF_Top_Metabox
          */
         
         add_meta_box( 
-            'analytics_top_metabox', 
-            'Analytics Head - Tracking Code', 
+            'analytics_bottom_page_metabox', 
+            'Analytics Footer - Tracking Code', 
             array( $this, 'textareaDisplayMPF' ), 
-            'post', 
+            'page', 
             'normal', 
             'high', 
             null 
@@ -37,13 +37,13 @@ class Analytics_MPF_Top_Metabox
 
     public function textareaDisplayMPF( $post ) {
 
-        $value = get_post_meta( $post->ID, '_analytics_top_meta_key', true );
+        $value = get_post_meta( $post->ID, '_analytics_bottom_page_meta_key', true );
 
-        wp_nonce_field( basename( __FILE__ ), 'analytics_top_meta_box_nonce' );
+        wp_nonce_field( basename( __FILE__ ), 'analytics_bottom_meta_box_nonce' );
 
     ?>
 
-         <textarea class="widefat" name="analytics_top_metabox"><?php echo $value; ?></textarea>
+         <textarea class="widefat" name="analytics_bottom_page_metabox" rows="7"><?php echo $value; ?></textarea>
 
     <?php
     }
@@ -55,9 +55,9 @@ class Analytics_MPF_Top_Metabox
 
         $is_valid_nonce = false;
 
-        if ( isset( $_POST[ 'analytics_top_meta_box_nonce' ] ) ) {
+        if ( isset( $_POST[ 'analytics_bottom_meta_box_nonce' ] ) ) {
 
-            if ( wp_verify_nonce( $_POST[ 'analytics_top_meta_box_nonce' ], basename( __FILE__ ) ) ) {
+            if ( wp_verify_nonce( $_POST[ 'analytics_bottom_meta_box_nonce' ], basename( __FILE__ ) ) ) {
 
                 $is_valid_nonce = true;
 
@@ -68,7 +68,7 @@ class Analytics_MPF_Top_Metabox
         if ( $is_autosave || $is_revision || !$is_valid_nonce ) return;
         
 
-        if ( array_key_exists( 'analytics_top_metabox', $_POST ) ) {        
+        if ( array_key_exists( 'analytics_bottom_page_metabox', $_POST ) ) {        
             /**
              *
              * update post meta 
@@ -79,11 +79,12 @@ class Analytics_MPF_Top_Metabox
                 $previous_value (optional)
              *
              */
-            $textarea_content = sanitize_text_field( $_POST[ 'analytics_top_metabox' ] );
+            $textarea_content = $_POST[ 'analytics_bottom_page_metabox' ];
+            // $textarea_content = sanitize_text_field( $_POST[ 'analytics_bottom_page_metabox' ] );
 
             update_post_meta( 
                 $post_id,                                              // Post ID
-                '_analytics_top_meta_key',                              // Meta key            
+                '_analytics_bottom_page_meta_key',                              // Meta key            
                 $textarea_content                                    // Meta value 
             );
         }
